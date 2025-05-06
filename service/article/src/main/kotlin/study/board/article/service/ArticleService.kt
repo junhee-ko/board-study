@@ -72,6 +72,22 @@ class ArticleService(
         )
     }
 
+    fun readAllInfiniteScroll(boardId: Long, pageSize: Long, lastArticleId: Long?): List<ArticleResponse> {
+        val articles = when (lastArticleId) {
+            null -> articleRepository.findAllArticlesInfiniteScroll(
+                boardId = boardId,
+                limit = pageSize
+            )
+            else -> articleRepository.findAllArticlesInfiniteScroll(
+                boardId = boardId,
+                limit = pageSize,
+                lastArticleId = lastArticleId
+            )
+        }
+
+        return articles.map { ArticleResponse.from(it) }
+    }
+
     @Transactional
     fun delete(articleId: Long) {
         articleRepository.deleteById(articleId)
