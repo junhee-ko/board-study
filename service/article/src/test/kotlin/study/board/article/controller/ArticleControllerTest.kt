@@ -2,8 +2,8 @@ package study.board.article.controller
 
 import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestClient
-import study.board.article.service.ArticlePageResponse
-import study.board.article.service.ArticleResponse
+import study.board.article.service.response.ArticlePageResponse
+import study.board.article.service.response.ArticleResponse
 
 class ArticleControllerTest {
     private val restClient = RestClient.create("http://localhost:9000")

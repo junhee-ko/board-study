@@ -5,6 +5,10 @@ import org.springframework.transaction.annotation.Transactional
 import snowflake.Snowflake
 import study.board.article.entity.Article
 import study.board.article.repository.ArticleRepository
+import study.board.article.service.request.ArticleCreateRequest
+import study.board.article.service.request.ArticleUpdateRequest
+import study.board.article.service.response.ArticlePageResponse
+import study.board.article.service.response.ArticleResponse
 
 @Service
 class ArticleService(

@@ -2,6 +2,10 @@ package study.board.article.controller
 
 import org.springframework.web.bind.annotation.*
 import study.board.article.service.*
+import study.board.article.service.request.ArticleCreateRequest
+import study.board.article.service.request.ArticleUpdateRequest
+import study.board.article.service.response.ArticlePageResponse
+import study.board.article.service.response.ArticleResponse
 
 @RestController
 class ArticleController(

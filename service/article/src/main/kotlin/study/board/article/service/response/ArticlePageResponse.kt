@@ -1,4 +1,4 @@
-package study.board.article.service
+package study.board.article.service.response
 
 import study.board.article.entity.Article
 

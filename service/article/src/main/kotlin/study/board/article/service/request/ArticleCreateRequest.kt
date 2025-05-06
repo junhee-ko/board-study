@@ -1,4 +1,4 @@
-package study.board.article.service
+package study.board.article.service.request
 
 data class ArticleCreateRequest(
     val title: String,
