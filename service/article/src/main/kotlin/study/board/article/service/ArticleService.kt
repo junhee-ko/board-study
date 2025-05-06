@@ -31,9 +31,10 @@ class ArticleService(
     @Transactional
     fun update(articleId: Long, articleUpdateRequest: ArticleUpdateRequest): ArticleResponse {
         val article = articleRepository.findById(articleId).orElseThrow()
-        article.update(title = articleUpdateRequest.title, content = articleUpdateRequest.content)
-
-        println(article)
+        article.update(
+            title = articleUpdateRequest.title,
+            content = articleUpdateRequest.content
+        )
 
         return ArticleResponse.from(article)
     }
@@ -42,11 +43,6 @@ class ArticleService(
         val article = articleRepository.findById(articleId).orElseThrow()
 
         return ArticleResponse.from(article)
-    }
-
-    @Transactional
-    fun delete(articleId: Long) {
-        articleRepository.deleteById(articleId)
     }
 
     fun readAll(boardId: Long, page: Long, pageSize: Long): ArticlePageResponse {
@@ -70,5 +66,10 @@ class ArticleService(
             articles = articles,
             articlesCount = count
         )
+    }
+
+    @Transactional
+    fun delete(articleId: Long) {
+        articleRepository.deleteById(articleId)
     }
 }
