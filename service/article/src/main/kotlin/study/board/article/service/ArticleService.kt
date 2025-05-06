@@ -30,7 +30,6 @@ class ArticleService(
 
     @Transactional
     fun update(articleId: Long, articleUpdateRequest: ArticleUpdateRequest): ArticleResponse {
-        println("-----------------")
         val article = articleRepository.findById(articleId).orElseThrow()
         article.update(title = articleUpdateRequest.title, content = articleUpdateRequest.content)
 
@@ -40,7 +39,6 @@ class ArticleService(
     }
 
     fun read(articleId: Long): ArticleResponse {
-        println("read")
         val article = articleRepository.findById(articleId).orElseThrow()
 
         return ArticleResponse.from(article)
@@ -49,5 +47,28 @@ class ArticleService(
     @Transactional
     fun delete(articleId: Long) {
         articleRepository.deleteById(articleId)
+    }
+
+    fun readAll(boardId: Long, page: Long, pageSize: Long): ArticlePageResponse {
+        val articles: List<Article> = articleRepository.findAllArticles(
+            boardId = boardId,
+            offset = (page - 1) * pageSize,
+            limit = pageSize
+        )
+
+        val pageLimit = PageLimitCalculator.calculatePageLimit(
+            page = page,
+            pageSize = pageSize,
+            movablePageCount = 10L
+        )
+        val count = articleRepository.countArticles(
+            boardId = boardId,
+            limit = pageLimit
+        )
+
+        return ArticlePageResponse(
+            articles = articles,
+            articlesCount = count
+        )
     }
 }

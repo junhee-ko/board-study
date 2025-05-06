@@ -2,6 +2,7 @@ package study.board.article.controller
 
 import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestClient
+import study.board.article.service.ArticlePageResponse
 import study.board.article.service.ArticleResponse
 
 class ArticleControllerTest {
@@ -39,6 +40,20 @@ class ArticleControllerTest {
             .uri("/v1/articles/{articleId}", articleId)
             .retrieve()
             .body(ArticleResponse::class.java)
+    }
+
+    @Test
+    fun readAllTest() {
+        val articlePageResponse = restClient.get()
+            .uri("/v1/articles?boardId=1&pageSize=30&page=50000")
+            .retrieve()
+            .body(ArticlePageResponse::class.java)
+
+        println("articlePageResponse.articlesCount: ${articlePageResponse?.articlesCount}")
+
+        articlePageResponse?.articles?.forEach {
+            println("articleId: ${it.articleId}")
+        }
     }
 
     @Test

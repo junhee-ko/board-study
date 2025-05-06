@@ -1,10 +1,7 @@
 package study.board.article.controller
 
 import org.springframework.web.bind.annotation.*
-import study.board.article.service.ArticleCreateRequest
-import study.board.article.service.ArticleResponse
-import study.board.article.service.ArticleService
-import study.board.article.service.ArticleUpdateRequest
+import study.board.article.service.*
 
 @RestController
 class ArticleController(
@@ -14,6 +11,19 @@ class ArticleController(
     @GetMapping("/v1/articles/{articleId}")
     fun read(@PathVariable articleId: Long): ArticleResponse {
         return articleService.read(articleId)
+    }
+
+    @GetMapping("/v1/articles")
+    fun readAll(
+        @RequestParam("boardId") boardId: Long,
+        @RequestParam("page") page: Long,
+        @RequestParam("pageSize") pageSize: Long,
+    ): ArticlePageResponse {
+        return articleService.readAll(
+            boardId = boardId,
+            page = page,
+            pageSize = pageSize
+        )
     }
 
     @PostMapping("/v1/articles")
